@@ -6,20 +6,56 @@
   <meta name="description" content="The HTML5 Herald">
   <meta name="author" content="SitePoint">
 
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
-
+  <!-- <link rel="stylesheet" href="css/reset.css"> -->
+  <link rel="stylesheet" href="css/styles.css">
+  
 </head>
 
 <body>
 
-    <h2>text XSS varin</h2>
+    <h1>Undirskriftarlisti</h1>
     <form method="post" action="/post-safe">
-      <input type="text" name="data">
+      <div class="labels">
+        <label for="name">nafn: </label>
+        <label for="nationalId">Kennitala: </label>
+        <label for="comment">Athugasemd: </label>
+      </div>
+      <div class="inputs">
+        <input type="text" name="name" value='asd'>      
+        <input type="text" name="nationalId" value='00000088'>      
+        <input type="text" name="comment" value='asdasd'>
+      </div>
+      <div class="check">
+        <input type="checkbox" name="anonymous" value="true">
+        <!-- <input type="checkbox" name="anonymous" value="false"> -->
+        
+        <label for="name">Ekki birta nafn á lista </label>
+      </div>
+      
       <button>Senda</button>
     </form>
     <hr>
 
     <h1>Undirskriftir: </h1>
-  <p><%= data %> </p>
+    <table>
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>Nafn</th>
+          <th>Athugasemd</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <% data.forEach(d => { %>
+        <tr>
+          <td><%= d.id %></td>
+          <td><%= d.name %> </td>
+          <td><%= d.comment %> </td>
+        </tr>
+        <% }) %>
+      
+    </tbody>
+  </table>
 </body>
 </html>
