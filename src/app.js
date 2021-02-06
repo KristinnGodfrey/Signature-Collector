@@ -63,10 +63,9 @@ app.post('/post-safe', async (req, res) => {
   const name = req.body.name;
   const nationalId = req.body.nationalId;
   const comment = req.body.comment;
-
-  
-  const anonymous = req.body.anonymous;
-
+  let anonymous = req.body.anonymous;
+  if(anonymous == "on") anonymous = true;
+  else anonymous = false;
 
   // const safeData = xss(data);
   await insert(name,nationalId,comment,anonymous);
