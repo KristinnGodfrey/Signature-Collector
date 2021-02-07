@@ -53,16 +53,37 @@ async function select() {
   return [];
 }
 
+function dateFormat(data) {
+  let datesArr = []
+  data.forEach(d => {
+    let year = d.signed.getFullYear();
+    let month = d.signed.getMonth();
+    let day = d.signed.getDate();
+    datesArr.push(`${day},${month},${year}`);
+  })
+
+  // for (let i = 0; i < data.length; i++){
+  //   data[i].signed = datesArr[i];
+  //   console.log(data[i]);
+  // }
+  return datesArr
+}
 
 app.get('/', async (req, res) => {
   const data = await select();
-  res.render('index', {data: data});
+
+  let formattedDates = dateFormat(data);
+  console.log(formattedDates);
+  
+  let err;
+  if (data.length == 0) {
+    res.render('index', {empty: "Engar undirskriftir.", formattedDates: formattedDates});
+  }
+  res.render('index', {data: data, empty: false});
 });
 
 app.post('/post-safe', async (req, res) => {
-  const name = req.body.name;
-  const nationalId = req.body.nationalId;
-  const comment = req.body.comment;
+  const {name, nationalId, comment} = req.body;
   let anonymous = req.body.anonymous;
   if(anonymous == "on") anonymous = true;
   else anonymous = false;
@@ -72,7 +93,7 @@ app.post('/post-safe', async (req, res) => {
 
   const data2 = await select();
   // þetta data í parameternum er ekki sama og ofangreint data
-  res.render('index', {data: data2});
+  res.render('index', {data: data2, empty: false});
 });
 
 const port = 3000;

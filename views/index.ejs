@@ -37,6 +37,9 @@
     <hr>
 
     <h1>Undirskriftir: </h1>
+    <% if (empty != false) { %>
+      <h2><%= empty %></h2>
+    <% } else { %> 
     <table>
       <thead>
         <tr>
@@ -46,10 +49,18 @@
         </tr>
       </thead>
       <tbody>
+
+        <% <for (let i = 0; i < data.length; i++) { %>
+         <tr> 
+          <td><%= data[i].signed %></td>
+          <td><%= data[i].name %></td>
+          <td><%= data[i].comment %></td>
+        </tr>
+        <% } %>
         
         <% data.forEach(d => { %>
         <tr>
-          <td><%= d.id %></td>
+          <td><%= d.signed %></td>
           <td><%= d.name %> </td>
           <td><%= d.comment %> </td>
         </tr>
@@ -57,5 +68,7 @@
       
     </tbody>
   </table>
+  <% } %>
+  
 </body>
 </html>
