@@ -2,9 +2,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>The HTML5 Herald</title>
-  <meta name="description" content="The HTML5 Herald">
-  <meta name="author" content="SitePoint">
+  <title>Undirskriftarsíða</title>
 
   <!-- <link rel="stylesheet" href="css/reset.css"> -->
   <link rel="stylesheet" href="css/styles.css">
@@ -12,7 +10,6 @@
 </head>
 
 <body>
-
     <h1>Undirskriftarlisti</h1>
     <form method="post" action="/post-safe">
       <div class="labels">
@@ -21,14 +18,12 @@
         <label for="comment">Athugasemd: </label>
       </div>
       <div class="inputs">
-        <input type="text" name="name" value='asd'>      
-        <input type="text" name="nationalId" value='000'>      
-        <input type="text" name="comment" value='asdasd'>
+        <input type="text" name="name" value="Kristinn">      
+        <input type="text" name="nationalId">      
+        <input type="text" name="comment" value='Mitt comment hallo heimur'>
       </div>
       <div class="check">
-        <input type="checkbox" name="anonymous" unchecked>
-        <!-- <input type="checkbox" name="anonymous" value="false"> -->
-        
+        <input type="checkbox" name="anonymous" unchecked>        
         <label for="name">Ekki birta nafn á lista </label>
       </div>
       
@@ -43,28 +38,20 @@
     <table>
       <thead>
         <tr>
-          <th>id</th>
+          <th>Date</th>
           <th>Nafn</th>
           <th>Athugasemd</th>
         </tr>
       </thead>
       <tbody>
 
-        <% <for (let i = 0; i < data.length; i++) { %>
+         <% for (let i = 0; i < data.length; i++) { %>
          <tr> 
-          <td><%= data[i].signed %></td>
-          <td><%= data[i].name %></td>
+          <td><%= formattedDates[i] %></td>
+          <td><%= data[i].anonymous == false ? data[i].name : '--- nafnleynd ---' %></td>
           <td><%= data[i].comment %></td>
         </tr>
         <% } %>
-        
-        <% data.forEach(d => { %>
-        <tr>
-          <td><%= d.signed %></td>
-          <td><%= d.name %> </td>
-          <td><%= d.comment %> </td>
-        </tr>
-        <% }) %>
       
     </tbody>
   </table>

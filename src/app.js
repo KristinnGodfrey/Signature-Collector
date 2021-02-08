@@ -59,27 +59,21 @@ function dateFormat(data) {
     let year = d.signed.getFullYear();
     let month = d.signed.getMonth();
     let day = d.signed.getDate();
-    datesArr.push(`${day},${month},${year}`);
+    datesArr.push(`${day}, ${month}, ${year}`);
   })
-
-  // for (let i = 0; i < data.length; i++){
-  //   data[i].signed = datesArr[i];
-  //   console.log(data[i]);
-  // }
-  return datesArr
+  return datesArr;
 }
 
 app.get('/', async (req, res) => {
   const data = await select();
 
   let formattedDates = dateFormat(data);
-  console.log(formattedDates);
   
   let err;
   if (data.length == 0) {
     res.render('index', {empty: "Engar undirskriftir.", formattedDates: formattedDates});
   }
-  res.render('index', {data: data, empty: false});
+  res.render('index', {data: data, empty: false, formattedDates: formattedDates});
 });
 
 app.post('/post-safe', async (req, res) => {
@@ -93,7 +87,9 @@ app.post('/post-safe', async (req, res) => {
 
   const data2 = await select();
   // þetta data í parameternum er ekki sama og ofangreint data
-  res.render('index', {data: data2, empty: false});
+  let formattedDates = dateFormat(data2);
+
+  res.render('index', {data: data2, empty: false, formattedDates: formattedDates});
 });
 
 const port = 3000;
