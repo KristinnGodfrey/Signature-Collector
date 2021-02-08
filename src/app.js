@@ -34,7 +34,6 @@ app.set('views', './views');
 app.set('view engine', 'ejs');
 
 
-
 async function insert(name, nationalId, comment, anonymous) {
   const client = await pool.connect();
   try {    
@@ -73,6 +72,8 @@ function dateFormat(data) {
 
 app.get('/', async (req, res) => {
   const data = await select();
+  // empty villuobj senda i render
+  let formErrs = {};
 
   let formattedDates = dateFormat(data);
   
@@ -83,7 +84,7 @@ app.get('/', async (req, res) => {
   res.render('index', {data: data, empty: false, formattedDates: formattedDates});
 });
 
-app.post('/post-safe', async (req, res) => {
+app.post('/', async (req, res) => {
   const {name, nationalId, comment} = req.body;
   let anonymous = req.body.anonymous;
   if(anonymous == "on") anonymous = true;
@@ -92,11 +93,11 @@ app.post('/post-safe', async (req, res) => {
   // const safeData = xss(data);
   await insert(name,nationalId,comment,anonymous);
 
-  const data2 = await select();
+  const data = await select();
   // þetta data í parameternum er ekki sama og ofangreint data
-  let formattedDates = dateFormat(data2);
+  let formattedDates = dateFormat(data);
 
-  res.render('index', {data: data2, empty: false, formattedDates: formattedDates});
+  res.render('index', {data: data, empty: false, formattedDates: formattedDates});
 });
 
 app.listen(port, () => {
