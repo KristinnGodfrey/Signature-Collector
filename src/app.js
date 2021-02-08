@@ -1,6 +1,7 @@
 import express from 'express';
 import xss from 'xss';
 import { insert, select }  from './db.js';
+import { body, sanitize, validationResult } from 'express-validator';
 
 const {   
   PORT: port = 3000,
@@ -14,7 +15,7 @@ app.use(express.static('public'));
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
-function dateFormat(data) {
+let dateFormat = (data) => {
   let datesArr = []
   data.forEach(d => {
     let year = d.signed.getFullYear();
@@ -23,12 +24,32 @@ function dateFormat(data) {
     datesArr.push(`${day}, ${month}, ${year}`);
   })
   return datesArr;
-}
+};
+
+let checkFormErrs = (name, nationalId, comment) => {
+  const nationalIdPattern = '^[0-9]{6}-?[0-9]{4}$';
+  let formErrs = {};
+  let nameBool;
+  let nationalIdBool;
+  let commentBool;
+  
+  if (name.length == 0) {
+    nameBool = false;
+    formErrs.push(nameBool);
+  }
+
+  // nationalId = body('nationalId').blacklist('-');
+  // console.log(nationalId);
+  if (nationalId.length != 10) {
+    
+    nationalIdBool = false;
+  }
+
+  return formErrs;
+};
 
 app.get('/', async (req, res) => {
   const data = await select();
-  // empty villuobj senda i render
-  let formErrs = {};
 
   let formattedDates = dateFormat(data);
   
@@ -39,20 +60,28 @@ app.get('/', async (req, res) => {
   res.render('index', {data: data, empty: false, formattedDates: formattedDates});
 });
 
-app.post('/', async (req, res) => {
-  const {name, nationalId, comment} = req.body;
-  let anonymous = req.body.anonymous;
-  if(anonymous == "on") anonymous = true;
-  else anonymous = false;
+app.post(
+  '/', 
+  // validation
+  body('name')
+    .isLength({ min: 1 })
+    .withMessage('Nafn má ekki vera tómt'),
+  // sanitation
+  body('name').trim().escape(),
+  body('nationalId').blacklist('-'),
 
-  // const safeData = xss(data);
-  await insert(name,nationalId,comment,anonymous);
-
-  const data = await select();
-  let formattedDates = dateFormat(data);
-
-  res.render('index', {data: data, empty: false, formattedDates: formattedDates});
-});
+  async (req, res) => { 
+    let {name, nationalId, comment} = req.body;
+    let anonymous = req.body.anonymous;
+    if(anonymous == "on") anonymous = true;
+    else anonymous = false;
+    await insert(name, nationalId, comment, anonymous);
+    const data = await select();
+    console.log(req.body.nationalId);
+    let formattedDates = dateFormat(data);
+    return res.render('index', {data: data, empty: false, formattedDates: formattedDates});
+  }
+);
 
 app.listen(port, () => {
   console.info(`Server running at http://localhost:${port}/`);
