@@ -14,11 +14,12 @@ import pg from 'pg';
 import express from 'express';
 import xss from 'xss';
 import dotenv from 'dotenv';
+// import { }  from './db.js';
 
 dotenv.config();
 
 const {
-  PORT: port = 3000
+   PORT: port = 3000
 } = process.env;
 
 const connectionString = 'postgres://vef2-2021:123@localhost/vef2-2021-v2';
@@ -29,10 +30,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static('public'));
 
-// set views
 app.set('views', './views');
 app.set('view engine', 'ejs');
-
 
 async function insert(name, nationalId, comment, anonymous) {
   const client = await pool.connect();
