@@ -76,7 +76,7 @@ app.get('/', async (req, res) => {
 
   let formattedDates = dateFormat(data);
   
-  let err;
+  let empty;
   if (data.length == 0) {
     res.render('index', {empty: "Engar undirskriftir.", formattedDates: formattedDates});
   }
