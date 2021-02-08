@@ -1,10 +1,6 @@
-import pg from 'pg';
 import express from 'express';
 import xss from 'xss';
-import dotenv from 'dotenv';
 import { insert, select }  from './db.js';
-
-// dotenv.config();
 
 const {   
   PORT: port = 3000,
@@ -53,7 +49,6 @@ app.post('/', async (req, res) => {
   await insert(name,nationalId,comment,anonymous);
 
   const data = await select();
-  // þetta data í parameternum er ekki sama og ofangreint data
   let formattedDates = dateFormat(data);
 
   res.render('index', {data: data, empty: false, formattedDates: formattedDates});
