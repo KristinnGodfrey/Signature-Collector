@@ -19,8 +19,7 @@ form {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    background-color: #eee;
-    
+    background-color: #eee;    
 }
 
 
@@ -52,11 +51,9 @@ table {
 td, th {
     text-align: center;
 }
-td:nth-child(1),th:nth-child(1){
-    
+td:nth-child(1),th:nth-child(1){    
     width:20%;
 }
 td:nth-child(2),td:nth-child(3), th:nth-child(2),th:nth-child(3) {
-    
     width: 40%;
 }
