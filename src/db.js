@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // const connectionString = process.env.DATABASE_URL;
+console.log(DATABASE_URL);
 const {  
   DATABASE_URL: connectionString,
 } = process.env;
