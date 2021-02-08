@@ -13,6 +13,13 @@ sem innihalda XSS.
 import pg from 'pg';
 import express from 'express';
 import xss from 'xss';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const {
+  PORT: port = 3000
+} = process.env;
 
 const connectionString = 'postgres://vef2-2021:123@localhost/vef2-2021-v2';
 const pool = new pg.Pool({ connectionString });
@@ -91,8 +98,6 @@ app.post('/post-safe', async (req, res) => {
 
   res.render('index', {data: data2, empty: false, formattedDates: formattedDates});
 });
-
-const port = 3000;
 
 app.listen(port, () => {
   console.info(`Server running at http://localhost:${port}/`);
