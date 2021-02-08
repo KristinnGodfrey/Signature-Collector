@@ -22,6 +22,8 @@ const {
    PORT: port = 3000
 } = process.env;
 
+
+
 const connectionString = 'postgres://vef2-2021:123@localhost/vef2-2021-v2';
 const pool = new pg.Pool({ connectionString });
 
