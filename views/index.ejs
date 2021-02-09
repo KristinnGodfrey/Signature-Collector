@@ -18,9 +18,9 @@
         <label for="comment">Athugasemd: </label>
       </div>
       <div class="inputs">
-        <input type="text" name="name" value="Kristinn">      
+        <input type="text" name="name">      
         <input type="text" name="nationalId">      
-        <input type="text" name="comment" value='Mitt comment hallo heimur'>
+        <input type="text" name="comment">
       </div>
       <div class="check">
         <input type="checkbox" name="anonymous" unchecked>        
@@ -29,6 +29,11 @@
       
       <button>Senda</button>
     </form>
+    <% if (errorMessages.length != 0) { %>
+      <% for (let i = 0; i < errorMessages.length; i++){ %>
+        <p><%= errorMessages[i] %> </p>
+      <% } %>
+    <% } %>
     <hr>
 
     <h1>Undirskriftir: </h1>

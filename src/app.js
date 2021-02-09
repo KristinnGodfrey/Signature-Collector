@@ -15,6 +15,8 @@ app.use(express.static('public'));
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
+const nationalIdPattern = '^[0-9]{6}-?[0-9]{4}$';
+
 let dateFormat = (data) => {
   let datesArr = []
   data.forEach(d => {
@@ -52,12 +54,13 @@ app.get('/', async (req, res) => {
   const data = await select();
 
   let formattedDates = dateFormat(data);
+  let errorMessages = {};
   
   let empty;
   if (data.length == 0) {
-    res.render('index', {empty: "Engar undirskriftir.", formattedDates: formattedDates});
+    res.render('index', {empty: "Engar undirskriftir.", formattedDates: formattedDates, errorMessages: errorMessages});
   }
-  res.render('index', {data: data, empty: false, formattedDates: formattedDates});
+  res.render('index', {data: data, empty: false, formattedDates: formattedDates, errorMessages: errorMessages});
 });
 
 app.post(
@@ -66,6 +69,32 @@ app.post(
   body('name')
     .isLength({ min: 1 })
     .withMessage('Nafn má ekki vera tómt'),
+  body('nationalId')
+    .isLength({ min: 1 })
+    .withMessage('Kennitala má ekki vera tóm'),
+  body('nationalId')
+    .matches(new RegExp(nationalIdPattern))
+    .withMessage('Kennitala verður að vera á formi 000000-0000 eða 0000000000'),
+  
+  async (req, res, next) => { 
+    const errors = validationResult(req);
+    let errMessages = {}
+    
+    if (!errors.isEmpty()) {
+
+      // await insert(name, nationalId, comment, anonymous);
+      const errorMessages = errors.array().map(i => i.msg);
+      console.log(errorMessages);
+
+      const data = await select();
+      
+      let formattedDates = dateFormat(data);
+      return res.render('index', {data: data, empty: false, formattedDates: formattedDates, errorMessages: errorMessages});
+    }
+
+    next();
+    
+  },
   // sanitation
   body('name').trim().escape(),
   body('nationalId').blacklist('-'),
@@ -77,10 +106,12 @@ app.post(
     else anonymous = false;
     await insert(name, nationalId, comment, anonymous);
     const data = await select();
-    console.log(req.body.nationalId);
+    // console.log(req.body.nationalId);
     let formattedDates = dateFormat(data);
-    return res.render('index', {data: data, empty: false, formattedDates: formattedDates});
+    let errorMessages = {}
+    return res.render('index', {data: data, empty: false, formattedDates: formattedDates, errorMessages: errorMessages });
   }
+
 );
 
 app.listen(port, () => {
