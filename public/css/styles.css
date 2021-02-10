@@ -11,6 +11,9 @@ h2 {
 p {
     text-align: center;
 }
+.bg_red {
+    background-color:red;
+}
 
 form {
     width: 600px;

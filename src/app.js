@@ -40,8 +40,6 @@ let checkFormErrs = (name, nationalId, comment) => {
     formErrs.push(nameBool);
   }
 
-  // nationalId = body('nationalId').blacklist('-');
-  // console.log(nationalId);
   if (nationalId.length != 10) {
     
     nationalIdBool = false;
@@ -55,12 +53,14 @@ app.get('/', async (req, res) => {
 
   let formattedDates = dateFormat(data);
   let errorMessages = {};
+  let errorTypes = {};
+   
   
   let empty;
   if (data.length == 0) {
-    res.render('index', {empty: "Engar undirskriftir.", formattedDates: formattedDates, errorMessages: errorMessages});
+    res.render('index', {empty: "Engar undirskriftir.", formattedDates: formattedDates, errorMessages: errorMessages, errorTypes: errorTypes});
   }
-  res.render('index', {data: data, empty: false, formattedDates: formattedDates, errorMessages: errorMessages});
+  res.render('index', {data: data, empty: false, formattedDates: formattedDates, errorMessages: errorMessages, errorTypes: errorTypes});
 });
 
 app.post(
@@ -78,18 +78,16 @@ app.post(
   
   async (req, res, next) => { 
     const errors = validationResult(req);
-    let errMessages = {}
+    
     
     if (!errors.isEmpty()) {
-
-      // await insert(name, nationalId, comment, anonymous);
       const errorMessages = errors.array().map(i => i.msg);
-      console.log(errorMessages);
+      const errorTypes = errors.array().map(i => i.param);
 
-      const data = await select();
-      
+      const data = await select();      
       let formattedDates = dateFormat(data);
-      return res.render('index', {data: data, empty: false, formattedDates: formattedDates, errorMessages: errorMessages});
+
+      return res.render('index', {data: data, empty: false, formattedDates: formattedDates, errorMessages: errorMessages, errorTypes: errorTypes});
     }
 
     next();
@@ -104,12 +102,15 @@ app.post(
     let anonymous = req.body.anonymous;
     if(anonymous == "on") anonymous = true;
     else anonymous = false;
+
     await insert(name, nationalId, comment, anonymous);
+
     const data = await select();
-    // console.log(req.body.nationalId);
     let formattedDates = dateFormat(data);
-    let errorMessages = {}
-    return res.render('index', {data: data, empty: false, formattedDates: formattedDates, errorMessages: errorMessages });
+    let errorMessages = {};
+    let errorTypes = {};
+
+    return res.render('index', {data: data, empty: false, formattedDates: formattedDates, errorMessages: errorMessages, errorTypes: errorTypes });
   }
 
 );

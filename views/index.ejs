@@ -18,8 +18,16 @@
         <label for="comment">Athugasemd: </label>
       </div>
       <div class="inputs">
-        <input type="text" name="name">      
-        <input type="text" name="nationalId">      
+        <% if (Object.values(errorTypes).includes('name')){ %>
+          <input type="text" name="name" class="bg_red"> 
+        <% } else { %>
+          <input type="text" name="name">   
+        <% } %>           
+        <% if (Object.values(errorTypes).includes('nationalId')){ %>
+        <input type="text" name="nationalId" class="bg_red">   
+        <% } else { %>   
+        <input type="text" name="nationalId"> 
+        <% } %>  
         <input type="text" name="comment">
       </div>
       <div class="check">
