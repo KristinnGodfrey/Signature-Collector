@@ -1,17 +1,20 @@
-p* Signature Collector
+* Signature Collector
 
 ** Set up 
-- npm install
-- npm start
+- ~npm install~
+- ~npm start~
 
 ** Test linting
-- npm test
+- ~npm test~
 
 ** psql info
 - Db name: 
-  - vef2-2021-v2
+  - ~vef2-2021-v2~
 - Username:
-  - vef2-2021 (all privileges granted on table 'Signatures')
+  - ~vef2-2021~ (all privileges granted on table 'Signatures')
+
+*** reset dummy data in table signatures
+- psql -d "vef2-2021-v2" -U "vef2-2021" < sql/fake.sql
 
 ** Heroku info
 running remotely on ~https://vef2-heroku.herokuapp.com/~.
