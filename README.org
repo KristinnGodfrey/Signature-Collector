@@ -1,0 +1,17 @@
+* Signature Collector
+
+** Set up 
+**** npm install
+**** npm start
+
+** Test linting
+**** npm test
+
+** psql info
+*** Db name: 
+**** vef2-2021-v2
+*** Username:
+**** vef2-2021 (all privileges granted on table 'Signatures')
+
+** Heroku info
+running remotely on ~https://vef2-heroku.herokuapp.com/~.
