@@ -1,23 +1,27 @@
 body {
-    font-family: Helvetica, Arial, sans-serif; 
+    font-family: Helvetica, Arial, sans-serif;
 }
+
 h1 {
     text-align: center;
 }
+
 h2 {
     text-align: center;
     font-weight: lighter;
 }
+
 p {
     text-align: center;
 }
+
 .bg_red {
-    background-color:red;
+    background-color: #f8a6b3;
 }
 
 form {
     width: 600px;
-    padding: 1% 0;    
+    padding: 1% 0;
     margin: 0 auto;
     margin-bottom: 1%;
     display: flex;
@@ -25,23 +29,24 @@ form {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    background-color: #eee;    
+    background-color: #eee;
 }
-
 
 .labels {
     display: flex;
     flex-direction: column;
-    margin-left:2.5%;
+    margin-left: 2.5%;
     width: 27.5%;
 }
+
 .inputs {
     display: flex;
     flex-direction: column;
     width: 67.5%;
     margin-right: 2.5%;
 }
-.check{
+
+.check {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -50,16 +55,22 @@ form {
 table {
     width: 600px;
     background-color: #eee;
-    padding: 1% 0;   
+    padding: 1% 0;
     margin: 0 auto;
     margin-bottom: 1%;
 }
-td, th {
+
+td,
+th {
     text-align: center;
 }
-td:nth-child(1),th:nth-child(1){    
-    width:20%;
+
+td:nth-child(1),
+th:nth-child(1) {
+    width: 20%;
 }
-td:nth-child(2),td:nth-child(3), th:nth-child(2),th:nth-child(3) {
+
+th:nth-child(2),
+th:nth-child(3) {
     width: 40%;
 }
