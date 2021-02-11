@@ -5,7 +5,7 @@
   "main": ".eslintrc.js",
   "scripts": {
     "start": "nodemon ./src/app.js",
-    "test": "concurrently \"npx stylelint **/styles.css\" \"npx eslint src/app.js src/db.js\" "
+    "test": "concurrently \"npx stylelint **/styles.css\" \"npx eslint src/app.js src/db.js src/registration.js\" "
   },
   "repository": {
     "type": "git",
