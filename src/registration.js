@@ -18,6 +18,32 @@ const dateFormat = (data) => {
     return datesArr;
   };
 
+
+  router.get('/', async (req, res) => {
+    const data = await select();
+  
+    const formattedDates = dateFormat(data);
+    const errorMessages = {};
+    const errorTypes = {};
+  
+    if (data.length === 0) {
+      res.render('index', {
+        empty: 'Engar undirskriftir.',
+        formattedDates,
+        errorMessages,
+        errorTypes,
+      });
+    }
+    res.render('index', {
+      data,
+      empty: false,
+      formattedDates,
+      errorMessages,
+      errorTypes,
+    });
+  });
+  
+
 router.post(
     '/',
     // validation
