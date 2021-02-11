@@ -109,6 +109,19 @@ app.post(
   },
 );
 
+function notFoundHandler(req, res, next) { // eslint-disable-line
+  res.status(404).render('error', { title: '404', error: '404 fannst ekki' });
+}
+
+function errorHandler(error, req, res, next) { // eslint-disable-line
+  console.error(error);
+  res.status(500).render('error', { title: 'Villa', error });
+}
+
+app.use(notFoundHandler);
+app.use(errorHandler);
+
+
 app.listen(port, () => {
   console.info(`Server running at http://localhost:${port}/`);
 });
