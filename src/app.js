@@ -1,5 +1,4 @@
 import express from 'express';
-import { select } from './db.js';
 import { router } from './registration.js';
 
 const { PORT: port = 3000 } = process.env;
