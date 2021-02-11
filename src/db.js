@@ -12,7 +12,7 @@ if (!connectionString) {
   process.exit(1);
 }
 
-const pool = new pg.Pool({ connectionString /* , ssl: { rejectUnauthorized: false} */ });
+const pool = new pg.Pool({ connectionString , ssl: { rejectUnauthorized: false} });
 
 export async function insert(name, nationalId, comment, anonymous) {
   const client = await pool.connect();
