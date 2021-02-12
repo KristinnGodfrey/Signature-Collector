@@ -18,7 +18,7 @@ function notFoundHandler(req, res, next) { // eslint-disable-line
 }
 
 function errorHandler(err, req, res, next) { // eslint-disable-line
-  res.status(500).render('error', { title: 'Villa', err, error: "500 Villa kom upp" });
+  res.status(500).render('error', { title: 'Villa', err, error: '500 Villa kom upp' });
 }
 
 app.use(notFoundHandler);
