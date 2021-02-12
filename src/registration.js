@@ -8,44 +8,43 @@ export const router = express.Router();
 const nationalIdPattern = '^[0-9]{6}-?[0-9]{4}$';
 
 const dateFormat = (data) => {
-  const datesArr = [];
   data.forEach((d) => {
     const year = d.signed.getFullYear();
     const month = d.signed.getMonth();
     const day = d.signed.getDate();
-    datesArr.push(`${day}, ${month}, ${year}`);
+    d.signed = (`${day}, ${month}, ${year}`);
   });
-  return datesArr;
+  return data;
 };
 
 router.get('/', async (req, res) => {
-  const data = await select();
+  let data = await select();
 
-  const formattedDates = dateFormat(data);
+  data = dateFormat(data);
   const errorMessages = {};
   const errorTypes = {};
 
   if (data.length === 0) {
     res.render('index', {
       empty: 'Engar undirskriftir.',
-      formattedDates,
       errorMessages,
       errorTypes,
+      title: "Undiskriftarlisti",
     });
   }
   res.render('index', {
     data,
     empty: false,
-    formattedDates,
     errorMessages,
     errorTypes,
+    title: "Undiskriftarlisti",
   });
 });
 
-router.post(
-  '/',
+router.post('/',
   // validation
-  body('name').isLength({ min: 1 }).withMessage('Nafn má ekki vera tómt'),
+  body('name').isLength({ min: 1 })
+    .withMessage('Nafn má ekki vera tómt'),
   body('nationalId')
     .isLength({ min: 1 })
     .withMessage('Kennitala má ekki vera tóm'),
@@ -60,15 +59,15 @@ router.post(
       const errorMessages = errors.array().map((i) => i.msg);
       const errorTypes = errors.array().map((i) => i.param);
 
-      const data = await select();
-      const formattedDates = dateFormat(data);
+      let data = await select();
+      data = dateFormat(data);
 
       return res.render('index', {
         data,
         empty: false,
-        formattedDates,
         errorMessages,
         errorTypes,
+        title: "Undiskriftarlisti",
       });
     }
 
@@ -89,17 +88,16 @@ router.post(
 
     await insert(safeName, safeNationalId, safeComment, anonymous);
 
-    const data = await select();
-    const formattedDates = dateFormat(data);
+    let data = await select();
+    data = dateFormat(data);
     const errorMessages = {};
     const errorTypes = {};
 
     return res.render('index', {
       data,
       empty: false,
-      formattedDates,
       errorMessages,
       errorTypes,
+      title: "Undiskriftarlisti",
     });
-  },
-);
+  });

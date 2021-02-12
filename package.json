@@ -4,7 +4,7 @@
   "description": "",
   "main": ".eslintrc.js",
   "scripts": {
-    "start": "node ./src/app.js",
+    "start": "nodemon ./src/app.js",
     "test": "concurrently \"npx stylelint **/styles.css\" \"npx eslint src/app.js src/db.js src/registration.js\" "
   },
   "repository": {
@@ -24,15 +24,15 @@
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-validator": "^6.9.2",
-    "nodemon": "^2.0.7",
     "pg": "^8.5.1",
-    "stylelint": "^13.9.0",
-    "stylelint-config-standard": "^20.0.0",
     "xss": "^1.0.8"
   },
   "devDependencies": {
     "eslint": "^7.19.0",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.22.1"
+    "eslint-plugin-import": "^2.22.1",
+    "nodemon": "^2.0.7",
+    "stylelint": "^13.10.0",
+    "stylelint-config-standard": "^20.0.0"
   }
 }

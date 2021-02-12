@@ -5,6 +5,7 @@ dotenv.config();
 
 const {
   DATABASE_URL: connectionString,
+  NODE_ENV: nodeEnv = 'development',
 } = process.env;
 
 if (!connectionString) {
@@ -12,7 +13,8 @@ if (!connectionString) {
   process.exit(1);
 }
 
-const pool = new pg.Pool({ connectionString , ssl: { rejectUnauthorized: false} });
+const ssl = nodeEnv !== 'development' ? { rejectUnauthorized: false } : false;
+const pool = new pg.Pool({ connectionString, ssl });
 
 export async function insert(name, nationalId, comment, anonymous) {
   const client = await pool.connect();

@@ -3,7 +3,7 @@
     <h1>Undirskriftarlisti</h1>
     <form method="post" action="/">
       <div class="labels">
-        <label for="name">nafn: </label>
+        <label for="name">Nafn: </label>
         <label for="nationalId">Kennitala: </label>
         <label for="comment">Athugasemd: </label>
       </div>
@@ -47,15 +47,13 @@
         </tr>
       </thead>
       <tbody>
-
-         <% for (let i = 0; i < data.length; i++) { %>
-         <tr> 
-          <td><%= formattedDates[i] %></td>
-          <td><%= data[i].anonymous == false ? data[i].name : '--- nafnleynd ---' %></td>
-          <td><%= data[i].comment %></td>
-        </tr>
-        <% } %>
-      
+        <% data.forEach((d) => { %>
+          <tr> 
+            <td><%= d.signed %></td>
+            <td><%= d.anonymous == false ? d.name : '--- nafnleynd ---' %></td>
+            <td><%= d.comment %></td>
+          </tr>
+        <% }); %>
     </tbody>
   </table>
   <% } %>
