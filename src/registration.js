@@ -12,7 +12,7 @@ const dateFormat = (data) => {
     const year = d.signed.getFullYear();
     const month = d.signed.getMonth();
     const day = d.signed.getDate();
-    d.signed = (`${day}, ${month}, ${year}`);
+    d.signed = (`${day}, ${month}, ${year}`); // villa í eslint en þetta er það sem ég vil gera.
   });
   return data;
 };
@@ -29,7 +29,7 @@ router.get('/', async (req, res) => {
       empty: 'Engar undirskriftir.',
       errorMessages,
       errorTypes,
-      title: "Undiskriftarlisti",
+      title: 'Undiskriftarlisti',
     });
   }
   res.render('index', {
@@ -37,7 +37,7 @@ router.get('/', async (req, res) => {
     empty: false,
     errorMessages,
     errorTypes,
-    title: "Undiskriftarlisti",
+    title: 'Undiskriftarlisti',
   });
 });
 
@@ -67,7 +67,7 @@ router.post('/',
         empty: false,
         errorMessages,
         errorTypes,
-        title: "Undiskriftarlisti",
+        title: 'Undiskriftarlisti',
       });
     }
 
@@ -98,6 +98,6 @@ router.post('/',
       empty: false,
       errorMessages,
       errorTypes,
-      title: "Undiskriftarlisti",
+      title: 'Undiskriftarlisti',
     });
   });
