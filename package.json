@@ -4,7 +4,7 @@
   "description": "",
   "main": ".eslintrc.js",
   "scripts": {
-    "start": "node ./src/app.js",
+    "start": "nodemon ./src/app.js",
     "test": "concurrently \"npx stylelint **/styles.css\" \"npx eslint src/app.js src/db.js src/registration.js\" "
   },
   "repository": {

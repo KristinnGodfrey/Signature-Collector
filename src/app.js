@@ -14,12 +14,11 @@ app.set('view engine', 'ejs');
 app.use('/', router);
 
 function notFoundHandler(req, res, next) { // eslint-disable-line
-  res.status(404).render('error', { title: '404', error: '404 fannst ekki' });
+  res.status(404).render('error', { title: '404', error: '404 Fannst ekki' });
 }
 
-function errorHandler(error, req, res, next) { // eslint-disable-line
-  console.error(error);
-  res.status(500).render('error', { title: 'Villa', error });
+function errorHandler(err, req, res, next) { // eslint-disable-line
+  res.status(500).render('error', { title: 'Villa', err, error: "500 Villa kom upp" });
 }
 
 app.use(notFoundHandler);
