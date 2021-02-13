@@ -4,7 +4,7 @@
 - ~npm install~
 - ~npm start~
 
-*** Set up or reset database
+*** Set up or reset table in db and add fake data
 - ~npm run setup~
 
 
