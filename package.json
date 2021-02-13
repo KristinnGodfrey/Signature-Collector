@@ -4,8 +4,9 @@
   "description": "",
   "main": ".eslintrc.js",
   "scripts": {
-    "start": "node ./src/app.js",
-    "test": "concurrently \"npx stylelint **/styles.css\" \"npx eslint src/app.js src/db.js src/registration.js\" "
+    "start": "nodemon ./src/app.js",
+    "setup": "node src/setup.js",
+    "test": "concurrently \"npx stylelint **/styles.css\" \"npx eslint src/app.js src/db.js src/registration.js src/setup.js \" "
   },
   "repository": {
     "type": "git",

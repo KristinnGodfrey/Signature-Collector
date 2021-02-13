@@ -84,7 +84,7 @@ router.post(
   body('name').trim().escape(),
   body('nationalId').blacklist('-'),
 
-  async (req, res, next) => {  // eslint villa hér? hún meikar ekki sens.
+  async (req, res, next) => { // eslint villa hér? hún meikar ekki sens.
     const { name, nationalId, comment } = req.body;
     const safeName = xss(name);
     const safeNationalId = xss(nationalId);
