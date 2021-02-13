@@ -4,6 +4,10 @@
 - ~npm install~
 - ~npm start~
 
+*** Set up or reset database
+- ~npm run setup~
+
+
 ** Test linting
 - ~npm test~
 
